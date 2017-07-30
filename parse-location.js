@@ -542,5 +542,5 @@ function print(location, unittest) {
             fcount++;
         }
     }
-    console.log("---------------------------------------\n")
+    console.log("---------------------------------------\n");
 }
