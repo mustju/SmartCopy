@@ -12,7 +12,7 @@ if (typeof String.prototype.startsWith != 'function') {
             return false;
         }
         return this.slice(0, str.length) == str;
-    }
+    };
 }
 if (typeof String.prototype.endsWith != 'function') {
     String.prototype.endsWith = function (str) {
@@ -20,12 +20,12 @@ if (typeof String.prototype.endsWith != 'function') {
             return false;
         }
         return this.substring(this.length - str.length, this.length) === str;
-    }
+    };
 }
 if (!String.prototype.contains) {
     String.prototype.contains = function () {
         return String.prototype.indexOf.apply(this, arguments) !== -1;
-    }
+    };
 }
 
 function exists(object) {

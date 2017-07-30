@@ -293,7 +293,7 @@ function useradd() {
                             "';"
                     }, function () {
                         window.close();
-                    })
+                    });
                 }
             };
             chrome.tabs.onUpdated.addListener(listener);
@@ -1159,7 +1159,7 @@ function buildTree(data, action, sendid) {
                 noerror = false;
                 var extrainfo = "";
                 if (response.variable.relation === "photo") {
-                    extrainfo = "The photo may be too large. "
+                    extrainfo = "The photo may be too large. ";
                 }
                 setMessage(errormsg, 'There was a problem adding a ' + response.variable.relation + ' to Geni. ' + extrainfo + 'Error Response: "' + e.message + '"');
                 console.log(e); //error in the above string(in this case,yes)!
@@ -1461,7 +1461,7 @@ function submitWait() {
         buildHistoryBox();
         console.log("Tree Updated...");
         if (devblocksend) {
-            console.log("******** Dev Mode - Blocked Sending ********")
+            console.log("******** Dev Mode - Blocked Sending ********");
         }
     }
 }
@@ -2045,7 +2045,7 @@ $(function () {
         });
         window.onwheel = function(event) {
             ffscrollcheck = null;
-        }
+        };
         $(window).scroll(function() {
             if(ffscrollcheck && !isDragging && $(window).scrollTop() === 0) {
                 $(window).scrollTop(ffscrollcheck);
