@@ -465,7 +465,12 @@ function checkPatronym(person) {
                     console.log("middle_name[" + lang + "]: " + middleName);
                     switch (lang) {
                         case 'en-US':
-                            if ((gender === 'male' && !middleName.endsWith('poika') && !middleName.endsWith('son'))
+                            if ((gender === 'male' && (/^\w+(np(ka?)?|ss).?$/.test(middleName)))
+                                || (gender === 'female' && (/^\w+(ntr|sdt?r).?$/.test(middleName)))) {
+
+                            consistencymessage = concat("info") + buildEditLink(person) + " contains an abbreviated patro/matronym in "
+                                + getPronoun(getGeniData(person, "gender")) + " middle name (" + lang + ").";
+                            } else if ((gender === 'male' && !middleName.endsWith('poika') && !middleName.endsWith('son'))
                                 || (gender === 'female' && !middleName.endsWith('tytär') && !middleName.endsWith('dotter'))) {
 
 //                                consistencymessage = concat("info") + chrome.i18n.getMessage("contains_non_patronym_in_middle_name",
@@ -475,7 +480,10 @@ function checkPatronym(person) {
                             }
                             break;
                         case 'fi':
-                            if ((gender === 'male' && !middleName.endsWith('poika')) || (gender === 'female' && !middleName.endsWith('tytär'))) {
+                            if ((gender === 'male' && /^\w+np(ka?)?.?$/.test(middleName)) || (gender === 'female' && /^\w+ntr.?$/.test(middleName))) {
+                            consistencymessage = concat("info") + buildEditLink(person) + " contains an abbreviated patro/matronym in "
+                                + getPronoun(getGeniData(person, "gender")) + " middle name (" + lang + ").";
+                            } else if ((gender === 'male' && !middleName.endsWith('poika')) || (gender === 'female' && !middleName.endsWith('tytär'))) {
 //                                consistencymessage = concat("info") + chrome.i18n.getMessage("contains_non_patronym_in_middle_name",
 //                                    [buildEditLink(person), getPronoun(getGeniData(person, "gender")), lang]);
                             consistencymessage = concat("info") + buildEditLink(person) + " contains a non-patro/matronym in "
@@ -483,7 +491,11 @@ function checkPatronym(person) {
                             }
                             break;
                         case 'sv':
-                            if ((gender === 'male' && !middleName.endsWith('son')) || (gender === 'female' && !middleName.endsWith('dotter'))) {
+                            if ((gender === 'male' && /^\w+ss\.?$/.test(middleName))
+                                || (gender === 'female' && /^\w+sdt?r\.?$/.test(middleName))) {
+                            consistencymessage = concat("info") + buildEditLink(person) + " contains an abbreviated patro/matronym in "
+                                + getPronoun(getGeniData(person, "gender")) + " middle name (" + lang + ").";
+                            } else if ((gender === 'male' && !middleName.endsWith('son')) || (gender === 'female' && !middleName.endsWith('dotter'))) {
 //                                consistencymessage = concat("info") + chrome.i18n.getMessage("contains_non_patronym_in_middle_name",
 //                                    [buildEditLink(person), getPronoun(getGeniData(person, "gender")), lang]);
                             consistencymessage = concat("info") + buildEditLink(person) + " contains a non-patro/matronym in "
