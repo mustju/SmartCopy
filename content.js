@@ -591,7 +591,7 @@ function checkPatronym(person) {
                         if (firstName.indexOf('poika') !== -1 || firstName.indexOf('tytär') !== -1
                             || firstName.indexOf('son') !== -1 || firstName.indexOf('dotter') !== -1) {
 
-                            consistencymessage = concat("info") + chrome.i18n.getMessage("contains_patronym_in_first_name",
+                            consistencymessage = concat("info") + _("contains_patronym_in_first_name",
                                 [buildEditLink(person), getPronoun(getGeniData(person, "gender")), lang]);
                         }
                     }
@@ -602,22 +602,33 @@ function checkPatronym(person) {
                     console.log("middle_name[" + lang + "]: " + middleName);
                     switch (lang) {
                         case 'en-US':
-                            if ((gender === 'male' && !middleName.endsWith('poika') && !middleName.endsWith('son'))
-                                || (gender === 'female' && !middleName.endsWith('tytär') && !middleName.endsWith('dotter'))) {
+                            if ((gender === 'male' && (/^\w+(np(ka?)?|ss).?$/.test(middleName)))
+                                || (gender === 'female' && (/^\w+(ntr|sdt?r).?$/.test(middleName)))) {
 
-                                consistencymessage = concat("info") + chrome.i18n.getMessage("contains_non_patronym_in_middle_name",
+                            consistencymessage = concat("info") + buildEditLink(person) + " contains an abbreviated patro/matronym in "
+                                + getPronoun(getGeniData(person, "gender")) + " middle name (" + lang + ").";
+                            } else if ((gender === 'male' && !middleName.endsWith('poika') && !middleName.endsWith('son'))
+                                || (gender === 'female' && !middleName.endsWith('tytär') && !middleName.endsWith('dotter'))) {
+                                consistencymessage = concat("info") + _("contains_non_patronym_in_middle_name",
                                     [buildEditLink(person), getPronoun(getGeniData(person, "gender")), lang]);
                             }
                             break;
                         case 'fi':
-                            if ((gender === 'male' && !middleName.endsWith('poika')) || (gender === 'female' && !middleName.endsWith('tytär'))) {
-                                consistencymessage = concat("info") + chrome.i18n.getMessage("contains_non_patronym_in_middle_name",
+                            if ((gender === 'male' && /^\w+np(ka?)?.?$/.test(middleName)) || (gender === 'female' && /^\w+ntr.?$/.test(middleName))) {
+                            consistencymessage = concat("info") + buildEditLink(person) + " contains an abbreviated patro/matronym in "
+                                + getPronoun(getGeniData(person, "gender")) + " middle name (" + lang + ").";
+                            } else if ((gender === 'male' && !middleName.endsWith('poika')) || (gender === 'female' && !middleName.endsWith('tytär'))) {
+                                consistencymessage = concat("info") + _("contains_non_patronym_in_middle_name",
                                     [buildEditLink(person), getPronoun(getGeniData(person, "gender")), lang]);
                             }
                             break;
                         case 'sv':
-                            if ((gender === 'male' && !middleName.endsWith('son')) || (gender === 'female' && !middleName.endsWith('dotter'))) {
-                                consistencymessage = concat("info") + chrome.i18n.getMessage("contains_non_patronym_in_middle_name",
+                            if ((gender === 'male' && /^\w+ss\.?$/.test(middleName))
+                                || (gender === 'female' && /^\w+sdt?r\.?$/.test(middleName))) {
+                            consistencymessage = concat("info") + buildEditLink(person) + " contains an abbreviated patro/matronym in "
+                                + getPronoun(getGeniData(person, "gender")) + " middle name (" + lang + ").";
+                            } else if ((gender === 'male' && !middleName.endsWith('son')) || (gender === 'female' && !middleName.endsWith('dotter'))) {
+                                consistencymessage = concat("info") + _("contains_non_patronym_in_middle_name",
                                     [buildEditLink(person), getPronoun(getGeniData(person, "gender")), lang]);
                             }
                             break;
@@ -628,7 +639,7 @@ function checkPatronym(person) {
     } else {
         var firstName = getGeniData(person, "first_name");
         if (/\w+(tytär|poika|dotter|son)(\s+\w*)?$/.test(firstName)) {
-            consistencymessage = concat("info") + chrome.i18n.getMessage("contains_patronym_in_first_name_default",
+            consistencymessage = concat("info") + _("contains_patronym_in_first_name_default",
                 [buildEditLink(person), getPronoun(getGeniData(person, "gender"))]);
         }
 
@@ -636,12 +647,12 @@ function checkPatronym(person) {
         if (middleName !== "") {
             if (gender === 'male') {
                 if (!/^\w+(poika|son)$/.test(middleName)) {
-                    consistencymessage = concat("info") + chrome.i18n.getMessage("contains_non_patronym_in_middle_name_default",
+                    consistencymessage = concat("info") + _("contains_non_patronym_in_middle_name_default",
                         [buildEditLink(person), getPronoun(getGeniData(person, "gender"))]);
                 }
             } else {
                 if (!/^\w+(tytär|dotter)$/.test(middleName)) {
-                    consistencymessage = concat("info") + chrome.i18n.getMessage("contains_non_patronym_in_middle_name_default",
+                    consistencymessage = concat("info") + _("contains_non_patronym_in_middle_name_default",
                         [buildEditLink(person), getPronoun(getGeniData(person, "gender"))]);
                 }
             }
