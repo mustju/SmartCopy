@@ -655,6 +655,9 @@ function checkPatronym(person) {
                     consistencymessage = concat("info") + _("contains_non_patronym_in_middle_name_default",
                         [buildEditLink(person), getPronoun(getGeniData(person, "gender"))]);
                 }
+                if (nameFound) {
+                    defaultLanguage = false;
+                }
             }
         }
     }   
